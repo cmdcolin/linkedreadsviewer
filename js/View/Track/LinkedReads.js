@@ -1,32 +1,22 @@
 define([
     'dojo/_base/declare',
-    'dojo/_base/array',
-    'dojo/_base/lang',
-    'dojo/request',
-    'dijit/Dialog',
     'JBrowse/View/Track/Alignments2',
-    'JBrowse/Util'
 ],
 function (
     declare,
-    array,
-    lang,
-    request,
-    Dialog,
     Alignments2,
-    Util
 ) {
     return declare(Alignments2, {
-        constructor: function () {
+        constructor() {
             this.barcodeMap = {};
             this.barcodeMax = 0;
         },
-        _getLayout: function () {
+        _getLayout() {
             var thisB = this;
             var layout = this.inherited(arguments);
             return declare.safeMixin(layout, {
                 addRect: function (id, left, right, height, data) {
-                    var bc = data.get('BX');
+                    var bc = data.get('BX')||'nothing';
                     if (!thisB.barcodeMap[bc]) {
                         thisB.barcodeMax += 10;
                         thisB.barcodeMap[bc] = thisB.barcodeMax;
@@ -56,6 +46,8 @@ function (
                     return y;
                 }
             });
+        },
+        renderClickMap() {
         }
     });
 });
